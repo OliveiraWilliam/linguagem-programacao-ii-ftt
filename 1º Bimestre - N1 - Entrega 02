@@ -1,0 +1,233 @@
+import java.util.ArrayList;
+import java.awt.Menu;
+import java.util.Scanner;
+private int codigo;
+
+public class Contato {
+
+  private String nome;
+  private String telefone;
+
+  public int getCodigo() {
+	  return codigo;
+}
+
+  public void setCodigo(int codigo) {
+	  this.codigo = codigo;
+}
+
+  public String getNome() {
+	  return nome;
+}
+
+  public void setNome(String nome) {
+	  this.nome = nome;
+}
+
+  public String getTelefone() {
+	  return telefone;
+}
+
+  public void setTelefone(String telefone) {
+	  this.telefone = telefone;
+}
+}
+
+public class Agenda {
+
+  ArrayList<Contato> registros = new ArrayList<Contato>();
+  int tamanhoMaximo = 10;
+
+  public void listarTodos() {
+
+	  if (this.registros.size() == 0) {
+		  System.out.println("**********************************************");
+		  System.out.println("A lista está vazia!");
+		  System.out.println("**********************************************\n");
+	}  else {
+		  for (int i = 0; i < registros.size(); i++) {
+			  System.out.println("**********************************************");
+			  System.out.println("Código: " + registros.get(i).getCodigo());
+			  System.out.println("Nome: " + registros.get(i).getNome());
+			  System.out.println("Telefone: "
+					  + registros.get(i).getTelefone());
+			  System.out.println("**********************************************\n");
+
+		}
+	}
+  
+  public void inserirContato(Contato contato) throws ListaCheiaException {
+	
+	  int tamanhoLista = this.registros.size();
+	  if (tamanhoLista < this.tamanhoMaximo) {
+		
+		  this.registros.add(contato);
+	}   else {
+		  throw new ListaCheiaException();
+	}
+}
+
+  public void editarContato(String telefone, Contato contato) {
+
+	  for (int i = 0; i < this.registros.size(); i++) {
+		  if (this.registros.get(i).getTelefone() == telefone) {
+			  this.registros.get(i).setCodigo(contato.getCodigo());
+			  this.registros.get(i).setNome(contato.getNome());
+			  return;
+		}
+	}
+
+	  System.out.println("**********************************************");
+	  System.out.println("Registro Não Encontrado.");
+	  System.out.println("**********************************************\n");
+
+}
+
+  public void apagarContato(Contato contato) {
+	  this.registros.remove(contato);
+
+}
+
+  public void apagarTodos() {
+	  this.registros.clear();
+}
+
+  public void imprimirMemoria() {
+	  int memoria = this.registros.size();
+	  System.out.println("Memória: " + memoria + "/10");
+
+}
+}
+
+public class Principal { public static void main(String[] args) throws ListaCheiaException {
+
+	  Agenda agenda = new Agenda();
+	  MenuDeOpcoes menu = new MenuDeOpcoes();
+
+	  Contato c1 = new Contato();
+	  Contato c2 = new Contato();
+	  Contato c3 = new Contato();
+	  Contato c4 = new Contato();
+	  Contato c5 = new Contato();
+	  Contato c6 = new Contato();
+	  Contato c7 = new Contato();
+	  Contato c8 = new Contato();
+	  Contato c9 = new Contato();
+	  Contato c10 = new Contato();
+	  Contato c11 = new Contato();
+
+	  c1.setCodigo(1);
+	  c1.setNome("Mano Brown");
+	  c1.setTelefone("(11) 7544-9025");
+
+	  c2.setCodigo(2);
+	  c2.setNome("Jorge Ben");
+	  c2.setTelefone("(21) 9212-8472");
+
+	  c3.setCodigo(3);
+	  c3.setNome("Belo");
+	  c3.setTelefone("(31) 9407-4701");
+
+	  c4.setCodigo(4);
+	  c4.setNome("Matue");
+	  c4.setTelefone("(41) 9349-7413");
+
+	  c5.setCodigo(5);
+	  c5.setNome("Marilia M");
+	  c5.setTelefone("(51) 9125-5578");
+
+  	c6.setCodigo(6);
+	  c6.setNome("Kurt K");
+	  c6.setTelefone("(61) 9889-1800");
+
+	  c7.setCodigo(7);
+	  c7.setNome("Bob M");
+	  c7.setTelefone("(71) 9730-1254");
+
+	  c8.setCodigo(8);
+	  c8.setNome("Will iam");
+	  c8.setTelefone("(81) 9685-1510");
+
+	  c9.setCodigo(9);
+	  c9.setNome("Toni G");
+	  c9.setTelefone("(91) 8807-4528");
+
+	  c10.setCodigo(10);
+	  c10.setNome("Marcelo F");
+	  c10.setTelefone("(01)8910-0470");
+	
+	  try {
+		  agenda.inserirContato(c1);
+		  agenda.inserirContato(c2);
+		  agenda.inserirContato(c3);
+		  agenda.inserirContato(c4);
+		  agenda.inserirContato(c5);
+		  agenda.inserirContato(c6);
+		  agenda.inserirContato(c7);
+		  agenda.inserirContato(c8);
+		  agenda.inserirContato(c9);
+		  agenda.inserirContato(c10);
+	}   catch (ListaCheiaException e) {
+		  System.out.println(e.getMessage());
+
+	}		
+	
+	  menu.menu();
+  }
+}
+
+public class MenuDeOpcoes {
+  Agenda agenda;
+  private String telefone;
+  private int opcao;
+  public void menu() throws ListaCheiaException {
+
+	  Scanner scan = new Scanner(System.in);
+
+	  System.out.println("***********************************************************");
+	  System.out.println("******************** AGENDA TELEFÔNICA ********************");
+	  System.out.println("***********************************************************\n");
+	  System.out.println("***********************************************************");
+	  System.out.println("Informe a alternativa desejada referente ao menu abaixo:\n");
+	  System.out.println("1 - Listar os contatos");
+	  System.out.println("2 - Inserir novo contato");
+	  System.out.println("3 - Editar contato");
+	  System.out.println("4 - Apagar contato");
+	  System.out.println("5 - Apagar todos os contatos existentes");
+	  System.out.println("6 - Mostrar memória");
+    
+    opcao = scan.nextInt();
+    do {
+      switch (opcao) {
+        case 1:
+          agenda.listarTodos();
+        break;
+        case 2:
+          agenda.inserirContato(contato);
+        break;
+        case 3:
+          agenda.editarContato(telefone, contato);
+        break;
+        case 4:
+          agenda.apagarContato(contato);
+        break;
+        case 5:
+          agenda.apagarTodos();
+        break;
+        case 6:
+          agenda.imprimirMemoria();
+        break;
+        case 7:
+        break;
+
+     while (opcao !7)
+  }
+}
+
+public class ListaCheiaException extends Exception { public ListaCheiaException() {
+	
+	  super("Lista Cheia!");
+  }
+}
+
+    
